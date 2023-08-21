@@ -34,6 +34,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'API_auth',
+    'API_admin',
     'API',
     'rest_framework',
     'cloudinary',
