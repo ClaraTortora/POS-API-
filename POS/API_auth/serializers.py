@@ -18,3 +18,15 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save() #esto se hace para encriptar la contraseña o lo que se quiera ocultar
         return user
+    
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+class LoginSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls,user):
+        token = super().get_token(user)
+        
+        token['username'] = user.username
+        token['fullname'] = user.first_name + ' ' + user.last_name
+        
+        return token
