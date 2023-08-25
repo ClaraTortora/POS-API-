@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'API_admin',
     'API',
     'rest_framework',
+    'rest_framework_simplejwt',
+    'rest_framework.authtoken',
     'cloudinary',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,7 +47,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'drf_yasg',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -138,3 +150,14 @@ cloudinary.config(
   api_key = "538499896768327", 
   api_secret = "GoB1AP2KcazLZ_OVGEUQTNZ_cdc" 
 )
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+
+    "ALGORITHM": "HS256",
+    "SIGNING_KEY": SECRET_KEY,
+    "TOKEN_OBTAIN_SERIALIZER": "API_auth.serializers.LoginSerializer",
+}
